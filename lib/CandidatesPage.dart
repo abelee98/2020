@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 
 class CandidatesPage extends StatelessWidget {
+  String _picture;
+  String _firstName;
+  String _lastName;
+  String _occupation;
+  String _party;
+
+  CandidatesPage(this._picture, this._firstName, this._lastName, this._occupation, this._party);
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -10,13 +18,11 @@ class CandidatesPage extends StatelessWidget {
         child: Stack(
           overflow: Overflow.visible,
           children: <Widget>[
-            
-            
             Column(
               children: <Widget>[
                 AspectRatio(
                   aspectRatio: 1,
-                  child: Image.asset("assets/bs-tall.png", fit: BoxFit.cover,),
+                  child: Image.asset(_picture, fit: BoxFit.cover,),
                 ),
               ],
             ),
@@ -60,7 +66,7 @@ class CandidatesPage extends StatelessWidget {
                             padding:
                                 EdgeInsets.only(top: 32, left: 18, right: 18),
                             child: Text(
-                              "Bernie Sanders",
+                              _firstName + " " + _lastName,
                               style: TextStyle(
                                   fontSize: 26, fontWeight: FontWeight.bold),
                             ),
@@ -68,7 +74,7 @@ class CandidatesPage extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(left: 18, right: 18),
                             child: Text(
-                              "Senator | Vermont",
+                              _occupation + " | " + _party,
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w300),
                             ),

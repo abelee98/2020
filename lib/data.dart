@@ -27,12 +27,12 @@ List<Candidate> candidates = [
   Candidate("Tim", "Ryan", "Congressman", "assets/tr.jpg", "assets/tr-tall.jpg", "Democrat", 46),
   Candidate("Bernie", "Sanders", "Senator", "assets/bs.jpg", "assets/bs-tall.png", "Democrat", 77),
   Candidate("Joe", "Sestak", "Former Congressman", "assets/js.jpg", "assets/js-tall.jpg", "Democrat", 67),
-  Candidate("Tom", "Steyer", "Former Hedge Fund Executive", "assets/ts.jpg", "assets/ts-tall.jpg", "Democrat", 62),
+  Candidate("Tom", "Steyer", "Former Hedge Fund Executive", "assets/ts.jpg", "assets/ts-tall.png", "Democrat", 62),
   Candidate("Elizabeth", "Warren", "Senator", "assets/ew.jpg", "assets/ew-tall.jpg", "Democrat", 70),
   Candidate("Marianne", "Williamson", "Author", "assets/mw.jpg", "assets/mw-tall.jpg", "Democrat", 67),
   Candidate("Andrew", "Yang", "Entrepreneur", "assets/ay.jpg", "assets/ay-tall.jpg", "Democrat", 44),
   Candidate("Mark", "Sanford", "Former Congressman", "assets/ms.jpg", "assets/ms-tall.jpg", "Republican", 59),
   Candidate("Donald J.", "Trump", "President", "assets/dt.jpg", "assets/dt-tall.jpg", "Republican", 73),
   Candidate("Joe", "Walsh", "Radio Show Host", "assets/jw.jpg", "assets/jw-tall.jpg", "Republican", 57),
-  Candidate("Bill", "Weld", "Former Governor", "assets/ww.jpg", "assets/ww-tall.jpg", "Republican", 74)
+  Candidate("Bill", "Weld", "Former Governor", "assets/ww.png", "assets/ww-tall.jpg", "Republican", 74)
 ];

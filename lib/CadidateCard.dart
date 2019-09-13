@@ -9,8 +9,9 @@ class CandidateCard extends StatelessWidget {
   String _occupation;
   String _party;
   String _picture;
+  String _tallPicture;
 
-  CandidateCard(this._firstName, this._lastName, this._occupation, this._party, this._picture);
+  CandidateCard(this._firstName, this._lastName, this._occupation, this._party, this._picture, this._tallPicture);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class CandidateCard extends StatelessWidget {
         // }));
         Navigator.of(context)
             .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
-          return CandidatesPage();
+          return CandidatesPage(_tallPicture, _firstName, _lastName, _occupation, _party);
         }));
       },
       child: Column(

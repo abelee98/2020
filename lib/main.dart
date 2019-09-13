@@ -69,8 +69,7 @@ class HomeState extends State<HomeWidget> {
                       itemCount: candidates.length,
                       itemBuilder: (context, position) {
                         var _c = candidates[position];
-                        print(_c.firstName);
-                        return CandidateCard(_c.firstName, _c.lastName, _c.occupation,_c.party, _c.pictureHome);
+                        return CandidateCard(_c.firstName, _c.lastName, _c.occupation,_c.party, _c.pictureHome, _c.pictureProfile);
                       },
                       controller: PageController(
                         viewportFraction: 0.9,

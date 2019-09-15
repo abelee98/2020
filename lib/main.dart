@@ -1,6 +1,5 @@
 import 'package:candidates/CadidateCard.dart';
 import 'package:flutter/material.dart';
-import 'package:candidates/CandidatesPage.dart';
 import 'package:candidates/PoliciesPage.dart';
 import 'package:flutter/services.dart';
 import 'package:candidates/data.dart';
@@ -14,13 +13,13 @@ void main() {
   runApp(MaterialApp(
     home: HomeWidget(),
     debugShowCheckedModeBanner: true,
+    theme: ThemeData(fontFamily: "Montserrat"),
   ));
 }
 
 class HomeWidget extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return new HomeState();
   }
 }
@@ -28,22 +27,23 @@ class HomeWidget extends StatefulWidget {
 class HomeState extends State<HomeWidget> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       child: Scaffold(
-        body: SingleChildScrollView(
+          body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             SizedBox(
               height: MediaQuery.of(context).padding.top,
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 8.0, left: 30, right: 18),
+              padding: const EdgeInsets.only(top: 8.0, left: 25, right: 18),
               child: Row(
                 children: <Widget>[
                   Text(
                     "2020",
-                    style: TextStyle(fontSize: 30,),
+                    style: TextStyle(
+                      fontSize: 40,
+                    ),
                   )
                 ],
               ),
@@ -56,10 +56,10 @@ class HomeState extends State<HomeWidget> {
                   Container(
                     width: MediaQuery.of(context).size.width,
                     height: 25,
-                    margin: EdgeInsets.only(left: 30, top: 15),
+                    margin: EdgeInsets.only(left: 25, top: 15),
                     child: Text(
                       "Candidates",
-                      style: TextStyle(fontSize: 26),
+                      style: TextStyle(fontSize: 26,),
                     ),
                   ),
                   SizedBox(
@@ -69,7 +69,13 @@ class HomeState extends State<HomeWidget> {
                       itemCount: candidates.length,
                       itemBuilder: (context, position) {
                         var _c = candidates[position];
-                        return CandidateCard(_c.firstName, _c.lastName, _c.occupation,_c.party, _c.pictureHome, _c.pictureProfile);
+                        return CandidateCard(
+                            _c.firstName,
+                            _c.lastName,
+                            _c.occupation,
+                            _c.party,
+                            _c.pictureHome,
+                            _c.pictureProfile);
                       },
                       controller: PageController(
                         viewportFraction: 0.9,
@@ -84,90 +90,15 @@ class HomeState extends State<HomeWidget> {
               width: MediaQuery.of(context).size.width,
               height: 25,
               margin: EdgeInsets.only(
-                left: 30,
+                left: 28,
               ),
               child: Text(
                 "Policies",
                 style: TextStyle(fontSize: 26),
               ),
             ),
-            // SizedBox(
-            //   width: MediaQuery.of(context).size.width,
-            //   child: GridView.count(
-            //   padding: EdgeInsets.all(8),
-            //   physics: BouncingScrollPhysics(),
-            //   crossAxisCount: 2,
-            //   children: List.generate(8, (index) {
-            //     return Policies();
-            //   }),
-            // ),
-            // )
-
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Policies(),
-                  Container(
-                    width: 20,
-                  ),
-                  Policies(),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Policies(),
-                  Container(
-                    width: 20,
-                  ),
-                  Policies(),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Policies(),
-                  Container(
-                    width: 20,
-                  ),
-                  Policies(),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Policies(),
-                  Container(
-                    width: 20,
-                  ),
-                  Policies(),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Policies(),
-                  Container(
-                    width: 20,
-                  ),
-                  Policies(),
-                ],
-              ),
-            )
+            createPolicies(),
+            SizedBox(height: 50,)
           ],
         ),
       )),
@@ -175,30 +106,81 @@ class HomeState extends State<HomeWidget> {
   }
 }
 
+Color hexToColor(String code) {
+  return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+}
+
 class Policies extends StatelessWidget {
+  String _policyName;
+  Policies(this._policyName);
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-        width: 150,
-        height: 90,
-        child: FlatButton(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          child: Text(
-            "Healthcare",
-            style: TextStyle(fontSize: 20, color: Colors.white),
+    return Stack(
+      overflow: Overflow.visible,
+      children: <Widget>[
+        Positioned(
+          bottom: -8,
+          right: (150-105)/4,
+          child: Container(
+            width: 120,
+            height: 50,
+            decoration: BoxDecoration(color: Colors.transparent, boxShadow: [
+              BoxShadow(blurRadius: 13, color: Colors.black.withOpacity(0.5),)
+            ]),
           ),
-          onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
-              return PoliciesPage();
-            }));
-          },
         ),
-        decoration: BoxDecoration(
-          color: Colors.blue,
-          borderRadius: BorderRadius.circular(10),
-        ));
+        Container(
+            width: 150,
+            height: 90,
+            child: FlatButton(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              child: Text(
+                _policyName,
+                style: TextStyle(fontSize: 20, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute<Null>(builder: (BuildContext context) {
+                  return PoliciesPage(_policyName);
+                }));
+              },
+            ),
+            decoration: BoxDecoration(
+              // color: Colors.blue,
+              borderRadius: BorderRadius.circular(10),
+              gradient: LinearGradient(
+                colors: [hexToColor("#47A9A7"), hexToColor("#4769A9")],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ),
+            )),
+        
+      ],
+    );
   }
+}
+
+Widget createPolicies() {
+  List<Widget> policiesLst = List<Widget>();
+  for (var i = 0; i < policies.length; i += 2) {
+    policiesLst.add(Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Policies(policies[i].name),
+          Container(
+            width: 20,
+          ),
+          Policies(policies[i + 1].name),
+        ],
+      ),
+    ));
+  }
+  return Column(
+    children: policiesLst,
+  );
 }

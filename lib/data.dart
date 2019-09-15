@@ -10,6 +10,11 @@ class Candidate {
   Candidate(this.firstName, this.lastName, this.occupation, this.pictureHome, this.pictureProfile, this.party, this.age);
 }
 
+class Policy {
+  String name;
+  Policy(this.name);
+}
+
 List<Candidate> candidates = [
   Candidate("Michael", "Bennet", "Senator", "assets/mb.jpg", "assets/mb-tall.jpg", "Democrat", 54),
   Candidate("Joe", "Biden", "Former Vice President", "assets/jb.jpg", "assets/jb-tall.jpg", "Democrat", 76),
@@ -27,7 +32,7 @@ List<Candidate> candidates = [
   Candidate("Tim", "Ryan", "Congressman", "assets/tr.jpg", "assets/tr-tall.jpg", "Democrat", 46),
   Candidate("Bernie", "Sanders", "Senator", "assets/bs.jpg", "assets/bs-tall.png", "Democrat", 77),
   Candidate("Joe", "Sestak", "Former Congressman", "assets/js.jpg", "assets/js-tall.jpg", "Democrat", 67),
-  Candidate("Tom", "Steyer", "Former Hedge Fund Executive", "assets/ts.jpg", "assets/ts-tall.png", "Democrat", 62),
+  Candidate("Tom", "Steyer", "Former Hedge Fund Exec.", "assets/ts.jpg", "assets/ts-tall.png", "Democrat", 62),
   Candidate("Elizabeth", "Warren", "Senator", "assets/ew.jpg", "assets/ew-tall.jpg", "Democrat", 70),
   Candidate("Marianne", "Williamson", "Author", "assets/mw.jpg", "assets/mw-tall.jpg", "Democrat", 67),
   Candidate("Andrew", "Yang", "Entrepreneur", "assets/ay.jpg", "assets/ay-tall.jpg", "Democrat", 44),
@@ -35,4 +40,15 @@ List<Candidate> candidates = [
   Candidate("Donald J.", "Trump", "President", "assets/dt.jpg", "assets/dt-tall.jpg", "Republican", 73),
   Candidate("Joe", "Walsh", "Radio Show Host", "assets/jw.jpg", "assets/jw-tall.jpg", "Republican", 57),
   Candidate("Bill", "Weld", "Former Governor", "assets/ww.png", "assets/ww-tall.jpg", "Republican", 74)
+];
+
+List<Policy> policies = [
+  Policy("Abortion"),
+  Policy("Gun Control"),
+  Policy("Climate"),
+  Policy("Taxes"),
+  Policy("Healthcare"),
+  Policy("Minimum Wage"),
+  Policy("Drug Price"),
+  Policy("Marijuana")
 ];

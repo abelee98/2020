@@ -52,8 +52,8 @@ class CandidatesPage extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(22.0),
-                      topRight: Radius.circular(22.0)),
+                      topLeft: Radius.circular(32.0),
+                      topRight: Radius.circular(32.0)),
                 ),
                 child: Padding(
                   padding: EdgeInsets.only(left: 8, right: 8),

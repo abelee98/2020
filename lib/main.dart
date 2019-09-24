@@ -1,8 +1,10 @@
 import 'package:candidates/CadidateCard.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:candidates/PoliciesPage.dart';
 import 'package:flutter/services.dart';
 import 'package:candidates/data.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
@@ -48,6 +50,25 @@ class HomeState extends State<HomeWidget> {
                 ],
               ),
             ),
+            // Container(
+            //   width: MediaQuery.of(context).size.width,
+            //   height: 200,
+            //   child: FlatButton(
+            //     child: Text("Add Data"),
+            //     onPressed: () {
+            //       addData();
+            //     },
+            //   ),
+            //   decoration: BoxDecoration(
+            //   // color: Colors.blue,
+            //   borderRadius: BorderRadius.circular(10),
+            //   gradient: LinearGradient(
+            //     colors: [hexToColor("#47A9A7"), hexToColor("#4769A9")],
+            //     begin: Alignment.centerLeft,
+            //     end: Alignment.centerRight,
+            //   ),
+            // )
+            // ),
             Container(
               width: MediaQuery.of(context).size.width,
               height: 340,
@@ -65,23 +86,30 @@ class HomeState extends State<HomeWidget> {
                   SizedBox(
                     height: 300,
                     width: MediaQuery.of(context).size.width,
-                    child: PageView.builder(
-                      itemCount: candidates.length,
-                      itemBuilder: (context, position) {
-                        var _c = candidates[position];
-                        return CandidateCard(
-                            _c.firstName,
-                            _c.lastName,
-                            _c.occupation,
-                            _c.party,
-                            _c.pictureHome,
-                            _c.pictureProfile);
+                    child: StreamBuilder(
+                      stream: Firestore.instance.collection("candidates").snapshots(),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) return Text("Getting data...");
+                        return PageView.builder(
+                          itemCount: snapshot.data.documents.length,
+                          itemBuilder: (context, position) {
+                            var _c = snapshot.data.documents[position];
+                            return CandidateCard(
+                                _c["firstName"],
+                                _c["lastName"],
+                                _c["occupation"],
+                                _c["party"],
+                                _c["pictureHome"],
+                                _c["pictureProfile"]);
+                          },
+                          controller: PageController(
+                            viewportFraction: 0.9,
+                            initialPage: 0,
+                          ),
+                        );
                       },
-                      controller: PageController(
-                        viewportFraction: 0.9,
-                        initialPage: 0,
-                      ),
-                    ),
+                    )
+                    
                   )
                 ],
               ),
@@ -160,6 +188,27 @@ class Policies extends StatelessWidget {
         
       ],
     );
+  }
+}
+
+void addData() async {
+  try {
+    for (var c in candidates) {
+      var name = c.firstName + " " + c.lastName;
+      // final String pHome = await FirebaseStorage.instance.ref().child(c.pictureHome).getDownloadURL();
+      // final String pProf = await FirebaseStorage.instance.ref().child(c.pictureProfile).getDownloadURL();
+      await Firestore.instance.collection("candidates").document(name).setData({
+        'age': c.age,
+        'firstName': c.firstName,
+        'lastName': c.lastName,
+        'occupation': c.occupation,
+        'party': c.party,
+        'pictureHome': c.pictureHome,
+        'pictureProfile': c.pictureProfile
+      });
+    }
+  } catch (e) {
+    print(e.toString());
   }
 }
 

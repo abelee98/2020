@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:candidates/CandidatesPage.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 // import './main.dart';
 
 class CandidateCard extends StatelessWidget {
@@ -11,11 +13,11 @@ class CandidateCard extends StatelessWidget {
   String _picture;
   String _tallPicture;
 
-  CandidateCard(this._firstName, this._lastName, this._occupation, this._party, this._picture, this._tallPicture);
+  CandidateCard(this._firstName, this._lastName, this._occupation, this._party,
+      this._picture, this._tallPicture);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return GestureDetector(
       onTap: () {
         // Navigator.of(context)
@@ -24,7 +26,8 @@ class CandidateCard extends StatelessWidget {
         // }));
         Navigator.of(context)
             .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
-          return CandidatesPage(_tallPicture, _firstName, _lastName, _occupation, _party);
+          return CandidatesPage(
+              _tallPicture, _firstName, _lastName, _occupation, _party);
         }));
       },
       child: Column(
@@ -35,10 +38,25 @@ class CandidateCard extends StatelessWidget {
                 width: 320.0,
                 height: 250,
                 margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                      image: AssetImage(_picture), fit: BoxFit.cover),
+                // decoration: BoxDecoration(
+                //   borderRadius: BorderRadius.circular(10),
+                //   image:
+                //   DecorationImage(
+                //       image: NetworkImage(_picture), fit: BoxFit.cover
+                //       ) ,
+                // ),
+                child: CachedNetworkImage(
+                  imageUrl: _picture,
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                          ),
+                      borderRadius: BorderRadius.circular(15)
+                    ),
+                  ),
+                  placeholder: (context, url) => CircularProgressIndicator(),
                 ),
               ),
               Container(
@@ -76,4 +94,13 @@ class CandidateCard extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<String> getFireURL(String pictureHome, String pictureProfile) async {
+  final String pHome =
+      await FirebaseStorage.instance.ref().child(pictureHome).getDownloadURL();
+  final String pProf = await FirebaseStorage.instance
+      .ref()
+      .child(pictureProfile)
+      .getDownloadURL();
 }
